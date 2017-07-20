@@ -3,20 +3,18 @@
         PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
-    <properties resource="personal-db.properties"></properties>
+    <properties resource="jdbc.properties"></properties>
     <classPathEntry location="${jdbc.driverLocation}" />
-    <!--classPathEntry location="D:\zngkpt\m2\repository\mysql\mysql-connector-java\5.1.40\mysql-connector-java-5.1.40.jar" /-->
     <context id="context1" targetRuntime="MyBatis3">
-
         <commentGenerator>
             <!-- 去除自动生成的注释 -->
             <property name="suppressAllComments" value="true" />
         </commentGenerator>
 
         <!-- 数据库连接配置 -->
-        <jdbcConnection driverClass="${jdbc.driverClass}"
-                        connectionURL="${jdbc.connectionURL}"
-                        userId="${jdbc.userId}"
+        <jdbcConnection driverClass="${jdbc.driverClassName}"
+                        connectionURL="${jdbc.url}"
+                        userId="${jdbc.username}"
                         password="${jdbc.password}" />
         <!--jdbcConnection driverClass="com.mysql.jdbc.Driver"
                         connectionURL="jdbc:mysql://localhost:3306/test"
