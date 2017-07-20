@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="conf.sqlmap.mapper.IpAddressMapper" >
+  <resultMap id="BaseResultMap" type="conf.sqlmap.pojo.IpAddress" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="minip" property="minip" jdbcType="INTEGER" />
+    <result column="maxip" property="maxip" jdbcType="INTEGER" />
+    <result column="continent" property="continent" jdbcType="VARCHAR" />
+    <result column="areacode" property="areacode" jdbcType="VARCHAR" />
+    <result column="country" property="country" jdbcType="VARCHAR" />
+    <result column="user" property="user" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="conf.sqlmap.pojo.IpAddress" extends="BaseResultMap" >
+    <result column="multiarea" property="multiarea" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, minip, maxip, continent, areacode, country, user
+  </sql>
+  <sql id="Blob_Column_List" >
+    multiarea
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="conf.sqlmap.pojo.IpAddressExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ip_address
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="conf.sqlmap.pojo.IpAddressExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ip_address
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ip_address
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ip_address
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="conf.sqlmap.pojo.IpAddressExample" >
+    delete from ip_address
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="conf.sqlmap.pojo.IpAddress" >
+    insert into ip_address (id, minip, maxip, 
+      continent, areacode, country, 
+      user, multiarea)
+    values (#{id,jdbcType=INTEGER}, #{minip,jdbcType=INTEGER}, #{maxip,jdbcType=INTEGER}, 
+      #{continent,jdbcType=VARCHAR}, #{areacode,jdbcType=VARCHAR}, #{country,jdbcType=VARCHAR}, 
+      #{user,jdbcType=VARCHAR}, #{multiarea,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="conf.sqlmap.pojo.IpAddress" >
+    insert into ip_address
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="minip != null" >
+        minip,
+      </if>
+      <if test="maxip != null" >
+        maxip,
+      </if>
+      <if test="continent != null" >
+        continent,
+      </if>
+      <if test="areacode != null" >
+        areacode,
+      </if>
+      <if test="country != null" >
+        country,
+      </if>
+      <if test="user != null" >
+        user,
+      </if>
+      <if test="multiarea != null" >
+        multiarea,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="minip != null" >
+        #{minip,jdbcType=INTEGER},
+      </if>
+      <if test="maxip != null" >
+        #{maxip,jdbcType=INTEGER},
+      </if>
+      <if test="continent != null" >
+        #{continent,jdbcType=VARCHAR},
+      </if>
+      <if test="areacode != null" >
+        #{areacode,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="user != null" >
+        #{user,jdbcType=VARCHAR},
+      </if>
+      <if test="multiarea != null" >
+        #{multiarea,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="conf.sqlmap.pojo.IpAddressExample" resultType="java.lang.Integer" >
+    select count(*) from ip_address
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ip_address
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.minip != null" >
+        minip = #{record.minip,jdbcType=INTEGER},
+      </if>
+      <if test="record.maxip != null" >
+        maxip = #{record.maxip,jdbcType=INTEGER},
+      </if>
+      <if test="record.continent != null" >
+        continent = #{record.continent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.areacode != null" >
+        areacode = #{record.areacode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.country != null" >
+        country = #{record.country,jdbcType=VARCHAR},
+      </if>
+      <if test="record.user != null" >
+        user = #{record.user,jdbcType=VARCHAR},
+      </if>
+      <if test="record.multiarea != null" >
+        multiarea = #{record.multiarea,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update ip_address
+    set id = #{record.id,jdbcType=INTEGER},
+      minip = #{record.minip,jdbcType=INTEGER},
+      maxip = #{record.maxip,jdbcType=INTEGER},
+      continent = #{record.continent,jdbcType=VARCHAR},
+      areacode = #{record.areacode,jdbcType=VARCHAR},
+      country = #{record.country,jdbcType=VARCHAR},
+      user = #{record.user,jdbcType=VARCHAR},
+      multiarea = #{record.multiarea,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ip_address
+    set id = #{record.id,jdbcType=INTEGER},
+      minip = #{record.minip,jdbcType=INTEGER},
+      maxip = #{record.maxip,jdbcType=INTEGER},
+      continent = #{record.continent,jdbcType=VARCHAR},
+      areacode = #{record.areacode,jdbcType=VARCHAR},
+      country = #{record.country,jdbcType=VARCHAR},
+      user = #{record.user,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="conf.sqlmap.pojo.IpAddress" >
+    update ip_address
+    <set >
+      <if test="minip != null" >
+        minip = #{minip,jdbcType=INTEGER},
+      </if>
+      <if test="maxip != null" >
+        maxip = #{maxip,jdbcType=INTEGER},
+      </if>
+      <if test="continent != null" >
+        continent = #{continent,jdbcType=VARCHAR},
+      </if>
+      <if test="areacode != null" >
+        areacode = #{areacode,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="user != null" >
+        user = #{user,jdbcType=VARCHAR},
+      </if>
+      <if test="multiarea != null" >
+        multiarea = #{multiarea,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="conf.sqlmap.pojo.IpAddress" >
+    update ip_address
+    set minip = #{minip,jdbcType=INTEGER},
+      maxip = #{maxip,jdbcType=INTEGER},
+      continent = #{continent,jdbcType=VARCHAR},
+      areacode = #{areacode,jdbcType=VARCHAR},
+      country = #{country,jdbcType=VARCHAR},
+      user = #{user,jdbcType=VARCHAR},
+      multiarea = #{multiarea,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="conf.sqlmap.pojo.IpAddress" >
+    update ip_address
+    set minip = #{minip,jdbcType=INTEGER},
+      maxip = #{maxip,jdbcType=INTEGER},
+      continent = #{continent,jdbcType=VARCHAR},
+      areacode = #{areacode,jdbcType=VARCHAR},
+      country = #{country,jdbcType=VARCHAR},
+      user = #{user,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
